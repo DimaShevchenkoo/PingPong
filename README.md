@@ -15,6 +15,7 @@ The C++ Classes:
     5)PingPongGameModeBase - game mode where stores all the info about scoring. Game starts from here.
 
 The Blueprint classes: 
+
     1)BP_Paddle - Child class of PlayerPaddle.
     2)AIPaddle - Child class of BP_Paddle. Represent an simple AI who follows the ball.
     3)BP_MovingBall - Child class of MovingBall.
