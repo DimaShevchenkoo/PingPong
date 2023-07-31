@@ -22,7 +22,7 @@ APlayerPaddle::APlayerPaddle()
 	BoxCollision->SetupAttachment(RootComponent);
 	StaticMeshComponent->SetupAttachment(BoxCollision);
 	
-	
+	PaddleSpeed = 800;
 }
 
 // Called when the game starts or when spawned
@@ -53,6 +53,8 @@ void APlayerPaddle::Move(float AxisValue)
 	FVector NewPaddleLocation{GetActorLocation()};
 	// Calculating paddle location by multiplying by delta seconds to avoid incorrect calculation for different systems  
 	NewPaddleLocation.Y +=  PaddleSpeed * AxisValue * UGameplayStatics::GetWorldDeltaSeconds(GetWorld());
+	
+	UE_LOG(LogTemp, Warning, TEXT("aboba %f"), AxisValue);
 	
 	float ClampedY = FMath::Clamp(NewPaddleLocation.Y, MinPaddleLocationY, MaxPaddleLocationY);
 	

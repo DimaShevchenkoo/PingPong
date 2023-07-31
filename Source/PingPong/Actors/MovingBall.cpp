@@ -6,8 +6,8 @@
 
 #include "Wall.h"
 #include "PingPong/PlayerPaddle.h"
-#include "Components/BoxComponent.h"
 #include "GoalZone.h"
+#include "Components/SphereComponent.h"
 #include "PingPong/PingPongGameModeBase.h"
 
 
@@ -16,13 +16,13 @@ AMovingBall::AMovingBall()
  	
 	PrimaryActorTick.bCanEverTick = true;
 	
-	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Collision"));
+	SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere Collision"));
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Static Mesh"));
 	
-	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &AMovingBall::OnOverlapBegin);
+	SphereCollision->OnComponentBeginOverlap.AddDynamic(this, &AMovingBall::OnOverlapBegin);
 	
-	RootComponent = BoxCollision;
-	StaticMeshComponent->SetupAttachment(BoxCollision);
+	RootComponent = SphereCollision;
+	StaticMeshComponent->SetupAttachment(SphereCollision);
 	
 }
 
@@ -48,7 +48,7 @@ bool AMovingBall::IsVerticallyOriented(const AActor* Actor, float AngleThreshold
 void AMovingBall::SetupBall()
 {
 	FVector RandomDirection = FVector(FMath::FRandRange(-1.0f, 1.0f),
-									  FMath::FRandRange(-1.0f, 1.0f),
+									  FMath::FRandRange(-2.f, 2.f),
 									  0.0f);
 	RandomDirection.Normalize();
 	BallMovement = RandomDirection * BallSpeed;
@@ -71,8 +71,8 @@ void AMovingBall::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActo
 	}
 	else if(OtherActor && OtherActor->IsA(APlayerPaddle::StaticClass()))
 	{
-		BallMovement.X *= -1.0f;
-		BallMovement.Y *= -1.0f;
+		BallMovement = BallMovement.MirrorByVector(FVector(-1.0f,0, 0));
+	
 	}
 	else if (OtherActor && OtherActor->IsA(AGoalZone::StaticClass()))
 	{

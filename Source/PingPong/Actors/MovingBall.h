@@ -35,7 +35,7 @@ protected:
 
 private:
 	UPROPERTY(VisibleAnywhere)
-	UBoxComponent* BoxCollision;
+	USphereComponent* SphereCollision;
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* StaticMeshComponent;
 	UPROPERTY()

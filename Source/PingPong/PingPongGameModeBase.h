@@ -31,8 +31,8 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void EndGame();
-	UFUNCTION(BlueprintCallable)
-	void ResetGame();
+	
+	
 	
 	void SetPlayerOneScore(int Value) { PlayerScore = Value; }
 	void SetOpponentScore(int Value) { OpponentScore = Value; }
@@ -60,6 +60,7 @@ private:
 
 	bool bIsGameActive{true};
 	
+	void ResetGame();
 	void SetScoreToZero();
 	void StartGame();
 };
